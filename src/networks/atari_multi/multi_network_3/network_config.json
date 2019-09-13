@@ -12,10 +12,14 @@
         [
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 96]
+                "shape"  : [3, 3, 32]
             },
             {
-                "type"      : "highway"
+                "type"      : "elu"
+            },
+            {
+                "type"      : "spatial attention",
+                "shape" : [3, 3]
             },
             {
                 "type"      : "max pooling",
@@ -25,10 +29,31 @@
 
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 96]
+                "shape"  : [3, 3, 32]
             },
             {
-                "type"      : "highway"
+                "type"      : "elu"
+            },
+            {
+                "type"      : "spatial attention",
+                "shape" : [3, 3]
+            },
+            {
+                "type"      : "max pooling",
+                "shape"  : [2, 2, 1]
+            },
+
+
+            {
+                "type"      : "convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "spatial attention",
+                "shape" : [3, 3]
             },
             {
                 "type"      : "max pooling",
@@ -37,22 +62,14 @@
 
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 96]
+                "shape"  : [3, 3, 32]
             },
             {
-                "type"      : "highway"
+                "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
-            },
-
-            {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 96]
-            },
-            {
-                "type"      : "highway"
+                "type"      : "spatial attention",
+                "shape" : [3, 3]
             },
             {
                 "type"      : "max pooling",

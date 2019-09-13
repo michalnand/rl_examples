@@ -12,7 +12,7 @@ class AtariMultiRLDqn:
 
         #init DQN agent
         gamma = 0.99
-        replay_buffer_size  = 8192*2*self.env.get_envs_count()
+        replay_buffer_size  = 8192 #*2*self.env.get_envs_count()
         epsilon_training    = 1.0
         epsilon_testing     = 0.1
         epsilon_decay       = 0.999998
