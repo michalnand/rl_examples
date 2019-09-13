@@ -1,0 +1,312 @@
+{
+	"hyperparameters" : 
+	{
+		"dropout" : 0.019999999552965164,
+		"gradient_clip" : 10,
+		"lambda1" : 1.0000000116860974e-07,
+		"lambda2" : 1.0000000116860974e-07,
+		"learning_rate" : 9.9999997473787516e-05,
+		"minibatch_size" : 32
+	},
+	"input_shape" : 
+	[
+		3,
+		3,
+		32
+	],
+	"layers" : 
+	[
+		{
+			"input_shape" : 
+			[
+				3,
+				3,
+				32
+			],
+			"output_shape" : 
+			[
+				6,
+				6,
+				32
+			],
+			"shape" : 
+			[
+				2,
+				2,
+				1
+			],
+			"type" : "unpooling",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_0"
+		},
+		{
+			"input_shape" : 
+			[
+				6,
+				6,
+				32
+			],
+			"output_shape" : 
+			[
+				6,
+				6,
+				32
+			],
+			"shape" : 
+			[
+				3,
+				3,
+				32
+			],
+			"type" : "convolution",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_1"
+		},
+		{
+			"input_shape" : 
+			[
+				6,
+				6,
+				32
+			],
+			"output_shape" : 
+			[
+				6,
+				6,
+				32
+			],
+			"shape" : 
+			[
+				0,
+				0,
+				0
+			],
+			"type" : "elu",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_2"
+		},
+		{
+			"input_shape" : 
+			[
+				6,
+				6,
+				32
+			],
+			"output_shape" : 
+			[
+				12,
+				12,
+				32
+			],
+			"shape" : 
+			[
+				2,
+				2,
+				1
+			],
+			"type" : "unpooling",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_3"
+		},
+		{
+			"input_shape" : 
+			[
+				12,
+				12,
+				32
+			],
+			"output_shape" : 
+			[
+				12,
+				12,
+				32
+			],
+			"shape" : 
+			[
+				3,
+				3,
+				32
+			],
+			"type" : "convolution",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_4"
+		},
+		{
+			"input_shape" : 
+			[
+				12,
+				12,
+				32
+			],
+			"output_shape" : 
+			[
+				12,
+				12,
+				32
+			],
+			"shape" : 
+			[
+				0,
+				0,
+				0
+			],
+			"type" : "elu",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_5"
+		},
+		{
+			"input_shape" : 
+			[
+				12,
+				12,
+				32
+			],
+			"output_shape" : 
+			[
+				24,
+				24,
+				32
+			],
+			"shape" : 
+			[
+				2,
+				2,
+				1
+			],
+			"type" : "unpooling",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_6"
+		},
+		{
+			"input_shape" : 
+			[
+				24,
+				24,
+				32
+			],
+			"output_shape" : 
+			[
+				24,
+				24,
+				32
+			],
+			"shape" : 
+			[
+				3,
+				3,
+				32
+			],
+			"type" : "convolution",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_7"
+		},
+		{
+			"input_shape" : 
+			[
+				24,
+				24,
+				32
+			],
+			"output_shape" : 
+			[
+				24,
+				24,
+				32
+			],
+			"shape" : 
+			[
+				0,
+				0,
+				0
+			],
+			"type" : "elu",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_8"
+		},
+		{
+			"input_shape" : 
+			[
+				24,
+				24,
+				32
+			],
+			"output_shape" : 
+			[
+				48,
+				48,
+				32
+			],
+			"shape" : 
+			[
+				2,
+				2,
+				1
+			],
+			"type" : "unpooling",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_9"
+		},
+		{
+			"input_shape" : 
+			[
+				48,
+				48,
+				32
+			],
+			"output_shape" : 
+			[
+				48,
+				48,
+				32
+			],
+			"shape" : 
+			[
+				3,
+				3,
+				32
+			],
+			"type" : "convolution",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_10"
+		},
+		{
+			"input_shape" : 
+			[
+				48,
+				48,
+				32
+			],
+			"output_shape" : 
+			[
+				48,
+				48,
+				32
+			],
+			"shape" : 
+			[
+				0,
+				0,
+				0
+			],
+			"type" : "elu",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_11"
+		},
+		{
+			"input_shape" : 
+			[
+				48,
+				48,
+				32
+			],
+			"output_shape" : 
+			[
+				48,
+				48,
+				12
+			],
+			"shape" : 
+			[
+				3,
+				3,
+				12
+			],
+			"type" : "convolution",
+			"weights_file_name" : "networks/atari_arkanoid_network_3/trained/reconstruction_network/layer_12"
+		}
+	],
+	"output_shape" : 
+	[
+		48,
+		48,
+		12
+	]
+}

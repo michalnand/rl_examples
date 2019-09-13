@@ -1,0 +1,67 @@
+{
+    "textures"   : [
+    {
+      "id"            : 0,
+      "file_name"  : "gui/textures/empty.png"
+    },
+
+    {
+      "id"            : 1,
+      "file_name"  : "gui/textures/wall.png"
+    },
+
+    {
+      "id"            : 2,
+      "file_name"  : "gui/textures/food.png"
+    },
+
+    {
+      "id"            : 3,
+      "file_name"  : "gui/textures/pacman.png"
+    },
+
+    {
+      "id"            : 4,
+      "file_name"  : "gui/textures/enemy.png"
+    },
+
+    {
+      "id"            : 5,
+      "file_name"  : "gui/textures/pong.png"
+    },
+
+    {
+        "id"            : 6,
+        "file_name"  : "gui/textures/car.png"
+    },
+
+    {
+        "id"            : 7,
+        "file_name"  : "gui/textures/wood.png"
+    },
+    {
+        "id"            : 8,
+        "file_name"  : "gui/textures/brick.png"
+    },
+    {
+        "id"            : 9,
+        "file_name"  : "gui/textures/wool.png"
+    },
+    {
+        "id"            : 10,
+        "file_name"  : "gui/textures/ore.png"
+    },
+    {
+        "id"            : 11,
+        "file_name"  : "gui/textures/rye.png"
+    },
+    {
+        "id"            : 12,
+        "file_name"  : "gui/textures/sun.png"
+    },
+    {
+        "id"            : 13,
+        "file_name"  : "gui/textures/green_cubes.png"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+network init start
+
+hyperparameters
+init_weight_range 0.000000 ,xavier
+learning_rate 0.005000
+lambda1 0.000001
+lambda2 0.000001
+dropout 0.200000
+minibatch size 32
+
+            DENSE FC  [   20    16     1] [    1     1    16] [    1     1   336] [      5120         16][     10272]
+                RELU  [    1     1   336] [    1     1     1] [    1     1   336] [         0          0][       672]
+            DENSE FC  [    1     1   336] [    1     1    16] [    1     1   352] [      5376         16][     10784]
+                RELU  [    1     1   352] [    1     1     1] [    1     1   352] [         0          0][       704]
+            DENSE FC  [    1     1   352] [    1     1    16] [    1     1   368] [      5632         16][     11296]
+                RELU  [    1     1   368] [    1     1     1] [    1     1   368] [         0          0][       736]
+            DENSE FC  [    1     1   368] [    1     1    16] [    1     1   384] [      5888         16][     11808]
+                RELU  [    1     1   384] [    1     1     1] [    1     1   384] [         0          0][       768]
+                  FC  [    1     1   384] [    1     1     2] [    1     1     2] [       768          2][      1540]
+
+input_geometry  [20 16 1]
+output_geometry [1 1 2]
+network flops operations 48580 FLOPS, 0.000049 GFLOPS
+init DONE
+
+network destructor done

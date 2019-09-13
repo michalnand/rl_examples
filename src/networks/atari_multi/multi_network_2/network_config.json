@@ -1,0 +1,196 @@
+{
+        "hyperparameters" :
+        {
+          "learning_rate"     : 0.001,
+          "lambda1"           : 0.0000001,
+          "lambda2"           : 0.0000001,
+          "dropout"           : 0.02,
+          "minibatch_size"    : 128
+        },
+
+        "layers"         :
+        [
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "max pooling",
+                "shape"  : [2, 2, 1]
+            },
+
+
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "max pooling",
+                "shape"  : [2, 2, 1]
+            },
+
+
+
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "max pooling",
+                "shape"  : [2, 2, 1]
+            },
+
+
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "max pooling",
+                "shape"  : [2, 2, 1]
+            },
+
+
+            {
+                "type"      : "flatten"
+            },
+            {
+                "type"      : "gru",
+                "shape"  : [1, 1, 256]
+            },
+
+
+
+            {
+                "type"      : "dropout"
+            },
+            {
+                "type"      : "output"
+            }
+
+        ]
+ }

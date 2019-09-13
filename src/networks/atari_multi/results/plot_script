@@ -1,0 +1,64 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+set ztic auto
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+
+#set terminal png size 2048,1356 enhanced font "Helvetica,20"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+set key left top
+
+# set style fill solid 1.0
+
+
+
+set xrange [:1000]
+set xlabel "games played"
+
+set ylabel "score"
+
+set output 'progress_training_arkanoid.png'
+plot '../../atari/arkanoid/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
+     '../multi_network_0/progress_training.log' using 6:7 title 'multi DQN' with lines lw 2, \
+     '../multi_network_1/progress_training.log' using 6:7 title 'multi DenseDQN' with lines lw 2
+
+
+set output 'progress_training_enduro.png'
+plot '../../atari/enduro/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
+     '../multi_network_0/progress_training.log' using 8:9 title 'multi DQN' with lines lw 2, \
+     '../multi_network_1/progress_training.log' using 8:9 title 'multi DenseDQN' with lines lw 2
+
+set output 'progress_training_invaders.png'
+plot '../../atari/invaders/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
+      '../multi_network_0/progress_training.log' using 10:11 title 'multi DQN' with lines lw 2, \
+      '../multi_network_1/progress_training.log' using 10:11 title 'multi DenseDQN' with lines lw 2
+
+set output 'progress_training_pacman.png'
+plot '../../atari/pacman/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
+     '../multi_network_0/progress_training.log' using 12:13 title 'multi DQN' with lines lw 2, \
+     '../multi_network_1/progress_training.log' using 12:13 title 'multi DenseDQN' with lines lw 2
+
+set output 'progress_training_pong.png'
+plot '../../atari/pong/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
+     '../multi_network_0/progress_training.log' using 14:15 title 'multi DQN' with lines lw 2, \
+     '../multi_network_1/progress_training.log' using 14:15 title 'multi DenseDQN' with lines lw 2
+
+set output 'progress_training_snake.png'
+plot '../../atari/snake/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
+     '../multi_network_0/progress_training.log' using 16:17 title 'multi DQN' with lines lw 2, \
+     '../multi_network_1/progress_training.log' using 16:17 title 'multi DenseDQN' with lines lw 2
+
+
+
+set autoscale x
+set xlabel "iterations"
+
+set output 'summary_training_progress.png'
+plot '../multi_network_0/progress_training.log' using 1:4 title 'multi DQN' with lines lw 2, \
+     '../multi_network_1/progress_training.log' using 1:4 title 'multi DenseDQN' with lines lw 2

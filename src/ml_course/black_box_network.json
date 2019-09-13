@@ -1,0 +1,43 @@
+{
+    "experience_buffer_size"    : 256,
+    "gamma"                     : 0.99,
+    "normalise"                 : false,
+
+  "network_architecture":
+  {
+        "network_log_file_name" : "black_box_network.log",
+
+        "input_geometry"     : [1, 1, 32],
+        "output_geometry"    : [1, 1, 4],
+
+        "hyperparameters" :
+        {
+          "init_weight_range" : 0.0,
+          "learning_rate"     : 0.01,
+          "lambda1"           : 0.0000001,
+          "lambda2"           : 0.0000001,
+          "dropout"           : 0.02,
+
+          "minibatch_size"    : 32
+        },
+
+        "layers"         :
+        [
+            {
+                "type"      : "fc",
+                "geometry"  : [1, 1, 32]
+            },
+            {
+                "type"      : "relu"
+            },
+
+            {
+                "type"      : "dropout"
+            },
+            {
+                "type"      : "output"
+            }
+
+        ]
+  }
+}

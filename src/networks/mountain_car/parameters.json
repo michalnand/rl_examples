@@ -1,0 +1,28 @@
+{
+        "hyperparameters" :
+        {
+          "learning_rate"     : 0.002,
+          "minibatch_size"    : 32,
+          "dropout"           : 0.02
+        },
+
+        "layers"         :
+        [
+
+
+            {
+                "type"      : "fc",
+                "shape"     : [1, 1, 8]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dropout"
+            },
+            {
+                "type"      : "output"
+            }
+        ]
+
+}

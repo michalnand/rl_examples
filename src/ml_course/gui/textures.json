@@ -1,0 +1,13 @@
+{
+    "textures"   : [
+    {
+      "id"            : 0,
+      "file_name"  : "gui/textures/empty.png"
+    },
+    {
+      "id"            : 5,
+      "file_name"  : "gui/textures/pong.png"
+    }
+
+  ]
+}

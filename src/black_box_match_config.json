@@ -1,0 +1,23 @@
+{
+    "trials count"          : 20,
+    "training iterations"   : 200000,
+    "testing iterations"    : 10000,
+
+    "verbose"               : false,
+
+    "seed"                  : 5000,
+
+    "result file name"      : "bots/black_box_match_score.txt",
+
+    "bots" :
+    [
+        {
+            "name"          : "linear",
+            "file name"     : "bots/linear.json"
+        },
+        {
+            "name"          : "skynet",
+            "file name"     : "bots/skynet.json"
+        }
+    ]
+}
