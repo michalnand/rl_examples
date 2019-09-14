@@ -33,5 +33,4 @@ def run_experiment(network_path, training_games, agent_type):
 
 #run_experiment("networks/atari_multi/multi_network_0/", 1000, "dqn")
 #run_experiment("networks/atari_multi/multi_network_1/", 1000, "dqn")
-#run_experiment("networks/atari_multi/multi_network_2/", 1000, "dqrn")
-run_experiment("networks/atari_multi/multi_network_3/", 1000, "dqn")
+run_experiment("networks/atari_multi/multi_network_2/", 1000, "dqn")
