@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1365" height="500" >
+<rect x="0" y="1" width="50" height="500" fill="rgb(200,200,0)" stroke-width="2" stroke="rgb(100,100,0)" />
+<text x="25" y="139" style="font-size: 30px; writing-mode: tb; ">input 48 48 12 </text>
+<rect x="65" y="1" width="50" height="500" fill="rgb(80,80,190)" stroke-width="2" stroke="rgb(40,40,95)" />
+<text x="90" y="109" style="font-size: 30px; writing-mode: tb; ">convolution 3 3 32 </text>
+<rect x="130" y="1" width="50" height="500" fill="rgb(190,80,80)" stroke-width="2" stroke="rgb(95,40,40)" />
+<text x="155" y="229" style="font-size: 30px; writing-mode: tb; ">elu</text>
+<rect x="195" y="1" width="50" height="500" fill="rgb(120,80,190)" stroke-width="2" stroke="rgb(60,40,95)" />
+<text x="220" y="86" style="font-size: 30px; writing-mode: tb; ">spatial attention 3 3 </text>
+<rect x="260" y="1" width="50" height="500" fill="rgb(80,190,80)" stroke-width="2" stroke="rgb(40,95,40)" />
+<text x="285" y="116" style="font-size: 30px; writing-mode: tb; ">max pooling 2 2 1 </text>
+<rect x="325" y="1" width="50" height="500" fill="rgb(80,80,190)" stroke-width="2" stroke="rgb(40,40,95)" />
+<text x="350" y="109" style="font-size: 30px; writing-mode: tb; ">convolution 3 3 32 </text>
+<rect x="390" y="1" width="50" height="500" fill="rgb(190,80,80)" stroke-width="2" stroke="rgb(95,40,40)" />
+<text x="415" y="229" style="font-size: 30px; writing-mode: tb; ">elu</text>
+<rect x="455" y="1" width="50" height="500" fill="rgb(120,80,190)" stroke-width="2" stroke="rgb(60,40,95)" />
+<text x="480" y="86" style="font-size: 30px; writing-mode: tb; ">spatial attention 3 3 </text>
+<rect x="520" y="1" width="50" height="500" fill="rgb(80,190,80)" stroke-width="2" stroke="rgb(40,95,40)" />
+<text x="545" y="116" style="font-size: 30px; writing-mode: tb; ">max pooling 2 2 1 </text>
+<rect x="585" y="1" width="50" height="500" fill="rgb(80,80,190)" stroke-width="2" stroke="rgb(40,40,95)" />
+<text x="610" y="109" style="font-size: 30px; writing-mode: tb; ">convolution 3 3 32 </text>
+<rect x="650" y="1" width="50" height="500" fill="rgb(190,80,80)" stroke-width="2" stroke="rgb(95,40,40)" />
+<text x="675" y="229" style="font-size: 30px; writing-mode: tb; ">elu</text>
+<rect x="715" y="1" width="50" height="500" fill="rgb(120,80,190)" stroke-width="2" stroke="rgb(60,40,95)" />
+<text x="740" y="86" style="font-size: 30px; writing-mode: tb; ">spatial attention 3 3 </text>
+<rect x="780" y="1" width="50" height="500" fill="rgb(80,190,80)" stroke-width="2" stroke="rgb(40,95,40)" />
+<text x="805" y="116" style="font-size: 30px; writing-mode: tb; ">max pooling 2 2 1 </text>
+<rect x="845" y="1" width="50" height="500" fill="rgb(80,80,190)" stroke-width="2" stroke="rgb(40,40,95)" />
+<text x="870" y="109" style="font-size: 30px; writing-mode: tb; ">convolution 3 3 32 </text>
+<rect x="910" y="1" width="50" height="500" fill="rgb(190,80,80)" stroke-width="2" stroke="rgb(95,40,40)" />
+<text x="935" y="229" style="font-size: 30px; writing-mode: tb; ">elu</text>
+<rect x="975" y="1" width="50" height="500" fill="rgb(120,80,190)" stroke-width="2" stroke="rgb(60,40,95)" />
+<text x="1000" y="86" style="font-size: 30px; writing-mode: tb; ">spatial attention 3 3 </text>
+<rect x="1040" y="1" width="50" height="500" fill="rgb(80,190,80)" stroke-width="2" stroke="rgb(40,95,40)" />
+<text x="1065" y="116" style="font-size: 30px; writing-mode: tb; ">max pooling 2 2 1 </text>
+<rect x="1105" y="1" width="50" height="500" fill="rgb(190,190,80)" stroke-width="2" stroke="rgb(95,95,40)" />
+<text x="1130" y="169" style="font-size: 30px; writing-mode: tb; ">fc 1 1 256 </text>
+<rect x="1170" y="1" width="50" height="500" fill="rgb(190,80,80)" stroke-width="2" stroke="rgb(95,40,40)" />
+<text x="1195" y="229" style="font-size: 30px; writing-mode: tb; ">elu</text>
+<rect x="1235" y="1" width="50" height="500" fill="rgb(100,100,100)" stroke-width="2" stroke="rgb(50,50,50)" />
+<text x="1260" y="199" style="font-size: 30px; writing-mode: tb; ">dropout</text>
+<rect x="1300" y="1" width="50" height="500" fill="rgb(190,190,80)" stroke-width="2" stroke="rgb(95,95,40)" />
+<text x="1325" y="154" style="font-size: 30px; writing-mode: tb; ">output 1 1 5 </text>
+</svg>

@@ -26,33 +26,39 @@ set ylabel "score"
 set output 'progress_training_arkanoid.png'
 plot '../../atari/arkanoid/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
      '../multi_network_0/progress_training.log' using 6:7 title 'multi DQN' with lines lw 2, \
-     '../multi_network_1/progress_training.log' using 6:7 title 'multi DenseDQN' with lines lw 2
+     '../multi_network_1/progress_training.log' using 6:7 title 'multi DenseDQN' with lines lw 2, \
+     '../multi_network_2/progress_training.log' using 6:7 title 'multi AttentionDQN' with lines lw 2, \
 
 
 set output 'progress_training_enduro.png'
 plot '../../atari/enduro/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
      '../multi_network_0/progress_training.log' using 8:9 title 'multi DQN' with lines lw 2, \
-     '../multi_network_1/progress_training.log' using 8:9 title 'multi DenseDQN' with lines lw 2
+     '../multi_network_1/progress_training.log' using 8:9 title 'multi DenseDQN' with lines lw 2, \
+     '../multi_network_2/progress_training.log' using 8:9 title 'multi AttentionDQN' with lines lw 2, \
 
 set output 'progress_training_invaders.png'
 plot '../../atari/invaders/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
       '../multi_network_0/progress_training.log' using 10:11 title 'multi DQN' with lines lw 2, \
-      '../multi_network_1/progress_training.log' using 10:11 title 'multi DenseDQN' with lines lw 2
+      '../multi_network_1/progress_training.log' using 10:11 title 'multi DenseDQN' with lines lw 2, \
+      '../multi_network_2/progress_training.log' using 10:11 title 'multi AttentionDQN' with lines lw 2, \
 
 set output 'progress_training_pacman.png'
 plot '../../atari/pacman/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
      '../multi_network_0/progress_training.log' using 12:13 title 'multi DQN' with lines lw 2, \
-     '../multi_network_1/progress_training.log' using 12:13 title 'multi DenseDQN' with lines lw 2
+     '../multi_network_1/progress_training.log' using 12:13 title 'multi DenseDQN' with lines lw 2, \
+     '../multi_network_2/progress_training.log' using 12:13 title 'multi AttentionDQN' with lines lw 2, \
 
 set output 'progress_training_pong.png'
 plot '../../atari/pong/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
      '../multi_network_0/progress_training.log' using 14:15 title 'multi DQN' with lines lw 2, \
-     '../multi_network_1/progress_training.log' using 14:15 title 'multi DenseDQN' with lines lw 2
+     '../multi_network_1/progress_training.log' using 14:15 title 'multi DenseDQN' with lines lw 2, \
+     '../multi_network_2/progress_training.log' using 14:15 title 'multi AttentionDQN' with lines lw 2, \
 
 set output 'progress_training_snake.png'
 plot '../../atari/snake/progress_training.log' using 2:4 title 'single DQN' with lines lw 2 lc 'red', \
      '../multi_network_0/progress_training.log' using 16:17 title 'multi DQN' with lines lw 2, \
-     '../multi_network_1/progress_training.log' using 16:17 title 'multi DenseDQN' with lines lw 2
+     '../multi_network_1/progress_training.log' using 16:17 title 'multi DenseDQN' with lines lw 2, \
+     '../multi_network_2/progress_training.log' using 16:17 title 'multi AttentionDQN' with lines lw 2, \
 
 
 
@@ -61,4 +67,5 @@ set xlabel "iterations"
 
 set output 'summary_training_progress.png'
 plot '../multi_network_0/progress_training.log' using 1:4 title 'multi DQN' with lines lw 2, \
-     '../multi_network_1/progress_training.log' using 1:4 title 'multi DenseDQN' with lines lw 2
+     '../multi_network_1/progress_training.log' using 1:4 title 'multi DenseDQN' with lines lw 2, \
+     '../multi_network_2/progress_training.log' using 1:4 title 'multi AttentionDQN' with lines lw 2
