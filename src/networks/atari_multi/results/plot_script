@@ -18,7 +18,7 @@ set key left top
 
 
 
-#set xrange [:1000]
+set xrange [:1000]
 set xlabel "games played"
 
 set ylabel "score"

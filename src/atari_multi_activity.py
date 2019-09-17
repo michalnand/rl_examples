@@ -50,13 +50,13 @@ def kernel_visualisation(network_path, agent_type = "dqn"):
     rl_atari = atari_rl_dqn.AtariRLDqn(env, network_path, agent_type)
     rl_atari.kernel_visualisation()
 
-
+'''
 test_activity("networks/atari_multi/multi_network_0/", "arkanoid")
 test_activity("networks/atari_multi/multi_network_0/", "enduro")
 test_activity("networks/atari_multi/multi_network_0/", "invaders")
 test_activity("networks/atari_multi/multi_network_0/", "pacman")
 test_activity("networks/atari_multi/multi_network_0/", "pong")
 test_activity("networks/atari_multi/multi_network_0/", "snake")
+'''
 
-
-#kernel_visualisation("networks/atari_multi/multi_network_0/")
+kernel_visualisation("networks/atari_multi/multi_network_2/")

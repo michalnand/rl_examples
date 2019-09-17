@@ -4,6 +4,8 @@ import libs.libs_agent.agent_dqn_curiosity
 
 import libs.libs_rysy_python.rysy as rysy
 
+import numpy
+
 
 class AtariRLDqn:
 
@@ -81,31 +83,39 @@ class AtariRLDqn:
         self.agent.save(self.network_path + "trained/")
 
 
-    def test(self, testing_games_to_play = 100):
-        testing_progress_log = rysy.Log(self.network_path + "progress_testing.log")
-
+    def test(self, log_filename_prefix, testing_games_to_play = 100):
         self.agent.load(self.network_path + "trained/")
-
-        #reset score
-        self.env.reset_score()
 
         #choose only the best action
         self.agent.run_best_enable()
 
+        score = []
+        game_id    = 0
 
         #process testing games
         while self.env.get_games_count() < testing_games_to_play + self.training_games_to_play:
             self.agent.main()
 
-            if self.env.get_iterations()%256 == 0:
-                str_progress = str(self.env.get_iterations()) + " "
-                str_progress+= str(self.env.get_games_count() - + self.training_games_to_play) + " "
-                str_progress+= str(self.agent.get_epsilon_start()) + " "
-                str_progress+= str(self.env.get_score()) + " "
-                str_progress+= "\n"
-                testing_progress_log.put_string(str_progress)
+            if self.env.get_games_count() != game_id:
+                game_id = self.env.get_games_count()
+                score.append(self.env.get_score())
+
+                self.env.reset_score()
+
+                print(score)
 
 
-        print("TESTING SCORE =", self.env.get_score())
+        mean_score = numpy.mean(score)
+        std        = numpy.std(score)
 
-        return self.env.get_score()
+        result = "games count : " + str(len(score)) + "\n"
+        result+= "mean score : " + str(mean_score) + "\n"
+        result+= "std score : " + str(std) + "\n"
+
+
+        result+= "games : " + "\n"
+        for i in range(0, len(score)):
+            result+= str(score[i]) + "\n"
+
+        testing_progress_log = rysy.Log(self.network_path + log_filename_prefix + "result_testing.log")
+        testing_progress_log.put_string(result)
