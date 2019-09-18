@@ -1,4 +1,5 @@
 import numpy
+import random
 
 class Env:
     def __init__(self):
@@ -66,6 +67,10 @@ class Env:
 
     def do_action(self, action):
         pass
+
+    def do_random_action(self):
+        action = random.randint(0, self.get_actions_count()-1)
+        self.do_action(action)
 
     def is_done(self):
         return self.terminal_state

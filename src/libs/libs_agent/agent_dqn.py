@@ -125,20 +125,6 @@ class DQNAgent(libs_agent.Agent):
 
         return 0
 
-    def kernel_visualisation(self, path):
-        self.deep_q_network.kernel_visualisation(path)
-
-    def activity_visualisation(self, path):
-        self.env.reset()
-        for i in range(0, 256):
-            self.main()
-
-        state = self.env.get_observation()
-        state_vector = VectorFloat(state)
-
-        self.deep_q_network.activity_visualisation(path, state_vector)
-        self.deep_q_network.heatmap_visualisation(path, state_vector)
-
     def get_heatmap(self):
         state = self.env.get_observation()
         state_vector = VectorFloat(state)

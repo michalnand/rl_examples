@@ -48,15 +48,6 @@ class AtariRLDqn:
             self.env.render()
             self.env._print()
 
-    def kernel_visualisation(self):
-        self.agent.load(self.network_path + "trained/")
-        self.agent.kernel_visualisation(self.network_path + "kernel_visualisation/")
-
-    def activity_visualisation(self, path = ""):
-        self.agent.load(self.network_path + "trained/")
-        self.agent.activity_visualisation(self.network_path + "activity_visualisation/" + path)
-
-
     def train(self, training_games_to_play = 500):
         training_progress_log = rysy.Log(self.network_path + "progress_training.log")
 
