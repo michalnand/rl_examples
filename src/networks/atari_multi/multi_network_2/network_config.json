@@ -18,8 +18,7 @@
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention",
-                "shape" : [3, 3]
+                "type"      : "spatial attention"
             },
             {
                 "type"      : "max pooling",
@@ -35,8 +34,7 @@
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention",
-                "shape" : [3, 3]
+                "type"      : "spatial attention"
             },
             {
                 "type"      : "max pooling",
@@ -52,8 +50,7 @@
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention",
-                "shape" : [3, 3]
+                "type"      : "spatial attention"
             },
             {
                 "type"      : "max pooling",
@@ -68,8 +65,7 @@
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention",
-                "shape" : [3, 3]
+                "type"      : "spatial attention"
             },
             {
                 "type"      : "max pooling",

@@ -21,13 +21,13 @@ def run(network_path, agent_type):
     envs.append(libs.libs_env.env_atari_pacman.EnvAtariPacman(size))
     envs.append(libs.libs_env.env_atari_pong.EnvAtariPong(size))
     envs.append(libs.libs_env.env_atari_snake.EnvAtariSnake(size))
-    
+
     #init environment
     env = libs.libs_env.env_atari_multi.EnvAtariMulti(envs, size, 512)
 
     rl_atari = atari_rl_dqn.AtariRLDqn(env, network_path, agent_type)
     rl_atari.visualise()
-
+ 
 
 #run("networks/atari_multi/multi_network_0/", "dqn")
 #run("networks/atari_multi/multi_network_1/", "dqn")
