@@ -12,28 +12,28 @@
         [
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
@@ -53,28 +53,28 @@
 
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
@@ -95,28 +95,28 @@
 
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
@@ -136,28 +136,28 @@
 
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
                 "type"      : "dense convolution",
-                "shape"  : [3, 3, 8]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
