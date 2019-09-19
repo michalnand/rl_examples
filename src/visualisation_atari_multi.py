@@ -29,6 +29,6 @@ def run(network_path, agent_type):
     rl_atari.visualise()
 
 
-run("networks/atari_multi/multi_network_0/", "dqn")
+#run("networks/atari_multi/multi_network_0/", "dqn")
 #run("networks/atari_multi/multi_network_1/", "dqn")
-#run("networks/atari_multi/multi_network_2/", "dqn")
+run("networks/atari_multi/multi_network_2/", "dqn")
