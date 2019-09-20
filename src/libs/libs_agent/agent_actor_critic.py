@@ -1,6 +1,6 @@
 """
- deep Q network (DQN) reinforcement learning agent
- agent is using deep neural network and experience replay to learn Q(s, a) values
+ ActorCriticreinforcement learning agent
+ agent is using deep neural network
 
  parameters
  network_config_file_name - DQN neural network architecture
@@ -17,8 +17,7 @@ import libs.libs_agent.agent as libs_agent
 from libs.libs_rysy_python.rysy import *
 
 
-#deep Q network agent
-class DQNAgent(libs_agent.Agent):
+class ActorCritic(libs_agent.Agent):
     def __init__(self, env, network_config_file_name, gamma, replay_buffer_size, epsilon_start = 1.0, epsilon_end = 0.1, epsilon_decay = 0.99999):
 
         #init parent class
@@ -26,7 +25,7 @@ class DQNAgent(libs_agent.Agent):
 
 
         state_shape  = Shape(self.env.get_width(), self.env.get_height(), self.env.get_depth()*self.env.get_time())
-        output_shape = Shape(1, 1, self.env.get_actions_count())
+        output_shape = Shape(1, 1, self.env.get_actions_count() + 1)
         self.model   = CNN(network_config_file_name, state_shape, output_shape)
 
         #init probabilities of choosing random action

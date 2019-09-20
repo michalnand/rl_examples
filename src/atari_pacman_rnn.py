@@ -10,8 +10,4 @@ network_path = "networks/atari/pacman_rnn/"
 rl_atari = atari_rl_dqn.AtariRLDqn(env, network_path, "dqrn")
 
 #rl_atari.train(1000)
-#rl_atari.test()
-
 rl_atari.visualise()
-
-#rl_atari.activity_test()

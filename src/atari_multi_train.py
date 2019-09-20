@@ -27,7 +27,6 @@ def run_experiment(network_path, training_games, agent_type):
     rl_atari = atari_multi_rl_dqn.AtariMultiRLDqn(env, network_path, agent_type)
 
     rl_atari.train(training_games)
-    rl_atari.test()
     #rl_atari.visualise()
 
 
