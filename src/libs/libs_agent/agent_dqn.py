@@ -146,14 +146,14 @@ class DQNAgent(libs_agent.Agent):
         save agent neural network into specified dir
     """
     def save(self, file_name_prefix):
-        self.model.save(file_name_prefix)
+        self.model.save(file_name_prefix + "trained/")
 
     """
         load agent neural network from specified file
     """
-    def load(self, file_name):
-        print("loading weights from ", file_name)
-        self.model.load_weights(file_name)
+    def load(self, file_name_prefix):
+        print("loading weights from ", file_name_prefix + "trained/")
+        self.model.load_weights(file_name_prefix + "trained/")
 
     def get_epsilon_start(self):
         return self.epsilon_start

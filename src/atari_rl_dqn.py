@@ -40,7 +40,7 @@ class AtariRLDqn:
 
 
     def visualise(self):
-        self.agent.load(self.network_path + "trained/")
+        self.agent.load(self.network_path)
 
         self.agent.run_best_enable()
 

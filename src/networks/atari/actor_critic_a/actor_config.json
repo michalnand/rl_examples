@@ -12,7 +12,19 @@
         [
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 16]
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "max pooling",
+                "shape"  : [2, 2, 1]
+            },
+
+            {
+                "type"      : "convolution",
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"

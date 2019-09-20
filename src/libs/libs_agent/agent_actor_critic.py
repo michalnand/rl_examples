@@ -45,9 +45,8 @@ class ActorCritic(libs_agent.Agent):
         self.model_critic._print()
 
     def main(self):
-         #choose correct epsilon - check if testing or training mode
-
         self.epsilon_start = self.epsilon_end
+        epsilon = self.epsilon_end
 
         '''
         if self.is_run_best_enabled():
@@ -111,9 +110,11 @@ class ActorCritic(libs_agent.Agent):
                 policy_probs = self.__vector_to_probs(self.replay_buffer[n]["actor_output"])
 
                 #actor learning
-                #action_id = self.replay_buffer[n]["action"]
-                for action_id in range(0, policy_probs.size()):
-                    self.replay_buffer[n]["actor_output"][action_id] = q*1.0/(policy_probs[action_id] + epsilon)
+                action_id = self.replay_buffer[n]["action"]
+                self.replay_buffer[n]["actor_output"][action_id] = q*1.0/(policy_probs[action_id] + epsilon)
+
+                #for action_id in range(0, policy_probs.size()):
+                #    self.replay_buffer[n]["actor_output"][action_id] = q*1.0/(policy_probs[action_id] + epsilon)
 
                 #clamp Q values into range <-10, 10> to prevent divergence
                 for action in range(self.env.get_actions_count()):
@@ -138,7 +139,7 @@ class ActorCritic(libs_agent.Agent):
             self.model_actor.unset_training_mode()
 
             #train critic
-            self.model_actor.set_training_mode()
+            self.model_critic.set_training_mode()
             for i in range(len(indicies)):
                 idx = indicies[i]
 
