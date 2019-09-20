@@ -2,6 +2,8 @@ import libs.libs_agent.agent_dqn
 import libs.libs_agent.agent_dqna
 import libs.libs_agent.agent_dqn_curiosity
 
+import libs.libs_agent.agent_actor_critic
+
 import libs.libs_rysy_python.rysy as rysy
 
 import numpy
@@ -17,8 +19,8 @@ class AtariRLDqn:
         #init DQN agent
         gamma = 0.99
         replay_buffer_size  = 8192
-        epsilon_start    = 1.0
-        epsilon_end     = 0.1
+        epsilon_start       = 1.0
+        epsilon_end         = 0.1
         epsilon_decay       = 0.99999
         curiosity_ratio     = 0.1
 
@@ -32,6 +34,8 @@ class AtariRLDqn:
             self.agent = libs.libs_agent.agent_dqna.DQNAAgent(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
         elif agent_type == "curiosity":
             self.agent = libs.libs_agent.agent_dqn_curiosity.DQNCuriosityAgent(env, self.network_path, gamma, curiosity_ratio, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "ac" or agent_type == "actor_critic":
+            self.agent = libs.libs_agent.agent_actor_critic.ActorCritic(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
 
 
 
@@ -69,13 +73,13 @@ class AtariRLDqn:
 
             if self.env.get_iterations()%50000 == 0:
                 print("SAVING network")
-                self.agent.save(self.network_path + "trained/")
+                self.agent.save(self.network_path)
 
-        self.agent.save(self.network_path + "trained/")
+        self.agent.save(self.network_path)
 
 
     def test(self, log_filename_prefix, testing_games_to_play = 100):
-        self.agent.load(self.network_path + "trained/")
+        self.agent.load(self.network_path)
 
         #choose only the best action
         self.agent.run_best_enable()

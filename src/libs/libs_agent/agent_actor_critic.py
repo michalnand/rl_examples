@@ -17,16 +17,18 @@ import libs.libs_agent.agent as libs_agent
 from libs.libs_rysy_python.rysy import *
 
 
+epsilon = 0.001
+
 class ActorCritic(libs_agent.Agent):
-    def __init__(self, env, network_config_file_name, gamma, replay_buffer_size, epsilon_start = 1.0, epsilon_end = 0.1, epsilon_decay = 0.99999):
+    def __init__(self, env, network_config_path, gamma, replay_buffer_size, epsilon_start = 1.0, epsilon_end = 0.1, epsilon_decay = 0.99999):
 
         #init parent class
         libs_agent.Agent.__init__(self, env)
 
-
         state_shape  = Shape(self.env.get_width(), self.env.get_height(), self.env.get_depth()*self.env.get_time())
-        output_shape = Shape(1, 1, self.env.get_actions_count() + 1)
-        self.model   = CNN(network_config_file_name, state_shape, output_shape)
+
+        self.model_actor   = CNN(network_config_path + "actor_config.json", state_shape, Shape(1, 1, self.env.get_actions_count()))
+        self.model_critic  = CNN(network_config_path + "critic_config.json", state_shape, Shape(1, 1, 1))
 
         #init probabilities of choosing random action
         #different for training and testing
@@ -39,26 +41,37 @@ class ActorCritic(libs_agent.Agent):
         self.replay_buffer_size = replay_buffer_size
         self.replay_buffer = []
 
-        self.model._print()
+        self.model_actor._print()
+        self.model_critic._print()
 
     def main(self):
          #choose correct epsilon - check if testing or training mode
+
+        self.epsilon_start = self.epsilon_end
+
+        '''
         if self.is_run_best_enabled():
             epsilon = self.epsilon_end
         else:
             epsilon = self.epsilon_start
             if self.epsilon_start > self.epsilon_end:
                 self.epsilon_start*= self.epsilon_decay
+        '''
+
 
         state           = self.env.get_observation()
         state_vector    = VectorFloat(state)    #convert to C++ vector
-        q_values        = VectorFloat(self.env.get_actions_count())
+        actor_output    = VectorFloat(self.env.get_actions_count())
+        critic_output   = VectorFloat(1)
 
-        #obtain Q-values from state
-        self.model.forward(q_values, state_vector)
+        #obtain actor policy output
+        self.model_actor.forward(actor_output, state_vector)
+
+        #obtain critic output
+        self.model_critic.forward(critic_output, state_vector)
 
         #select action using q_values from NN and epsilon
-        self.action = self.select_action(q_values, epsilon)
+        self.action = self.select_action(actor_output, epsilon)
 
         #execute action
         self.env.do_action(self.action)
@@ -73,11 +86,12 @@ class ActorCritic(libs_agent.Agent):
         #- state, q_values, reward, terminal state flag
         if len(self.replay_buffer) < self.replay_buffer_size:
             buffer_item  = {
-                "state"        : state_vector,
-                "q_values"     : q_values,
-                "action"       : self.action,
-                "reward"       : self.reward,
-                "terminal"     : self.env.is_done()
+                "state"         : state_vector,
+                "actor_output"  : actor_output,
+                "critic_output" : critic_output,
+                "action"        : self.action,
+                "reward"        : self.reward,
+                "terminal"      : self.env.is_done()
             }
             self.replay_buffer.append(buffer_item)
         else:
@@ -90,42 +104,50 @@ class ActorCritic(libs_agent.Agent):
                 else:
                     gamma = self.gamma
 
-                action_id = self.replay_buffer[n]["action"]
+                #critic learning
+                q      = self.replay_buffer[n]["reward"] + gamma*self.replay_buffer[n + 1]["critic_output"][0]
+                self.replay_buffer[n]["critic_output"][0] = self.__clamp(q, -10.0, 10.0)
 
+                policy_probs = self.__vector_to_probs(self.replay_buffer[n]["actor_output"])
 
-                #Q-learning : Q(s[n], a[n]) = R[n] + gamma*max(Q(s[n+1]))
-                q_next = max(self.replay_buffer[n+1]["q_values"])
-                self.replay_buffer[n]["q_values"][action_id] = self.replay_buffer[n]["reward"] + gamma*max(self.replay_buffer[n+1]["q_values"])
+                #actor learning
+                #action_id = self.replay_buffer[n]["action"]
+                for action_id in range(0, policy_probs.size()):
+                    self.replay_buffer[n]["actor_output"][action_id] = q*1.0/(policy_probs[action_id] + epsilon)
 
                 #clamp Q values into range <-10, 10> to prevent divergence
                 for action in range(self.env.get_actions_count()):
-                    self.replay_buffer[n]["q_values"][action] = self.__clamp(self.replay_buffer[n]["q_values"][action], -10.0, 10.0)
+                    self.replay_buffer[n]["actor_output"][action] = self.__clamp(self.replay_buffer[n]["actor_output"][action], -10.0, 10.0)
 
 
-            '''
-            common supervised training
-                we have in/out pairs :
-                    input         = self.replay_buffer[n]["state"]
-                    target output = self.replay_buffer[n]["q_values"]
-            '''
 
             #shuffle items order
             indicies = numpy.arange(self.replay_buffer_size)
             numpy.random.shuffle(indicies)
 
-            self.model.set_training_mode()
-
+            #train actor
+            self.model_actor.set_training_mode()
             for i in range(len(indicies)):
-                #choose random item, to break correlations
                 idx = indicies[i]
 
-                state           = self.replay_buffer[idx]["state"]
-                target_q_values = self.replay_buffer[idx]["q_values"]
+                state  = self.replay_buffer[idx]["state"]
+                target = self.replay_buffer[idx]["actor_output"]
 
                 #fit network
-                self.model.train(target_q_values, state)
+                self.model_actor.train(target, state)
+            self.model_actor.unset_training_mode()
 
-            self.model.unset_training_mode()
+            #train critic
+            self.model_actor.set_training_mode()
+            for i in range(len(indicies)):
+                idx = indicies[i]
+
+                state  = self.replay_buffer[idx]["state"]
+                target = self.replay_buffer[idx]["critic_output"]
+
+                #fit network
+                self.model_critic.train(target, state)
+            self.model_critic.unset_training_mode()
 
             #clear buffer
             self.replay_buffer = []
@@ -140,19 +162,35 @@ class ActorCritic(libs_agent.Agent):
 
         return value
 
+    def __vector_to_probs(self, input):
+        result    = VectorFloat(self.env.get_actions_count())
+
+        sum = 0.0
+        for i in range(input.size()):
+            result[i] = numpy.exp(input[i])
+            sum+= result[i]
+
+        for i in range(input.size()):
+            result[i]/= sum
+
+        return result
+
 
     """
         save agent neural network into specified dir
     """
     def save(self, file_name_prefix):
-        self.model.save(file_name_prefix)
+        print("saving to", file_name_prefix)
+        self.model_actor.save(file_name_prefix + "actor_trained/")
+        self.model_critic.save(file_name_prefix + "critic_trained/")
 
     """
         load agent neural network from specified file
     """
-    def load(self, file_name):
-        print("loading weights from ", file_name)
-        self.model.load_weights(file_name)
+    def load(self, file_name_prefix):
+        print("loading weights from ", file_name_prefix)
+        self.model_actor.load_weights(file_name_prefix  + "actor_trained/")
+        self.model_critic.load_weights(file_name_prefix + "critic_trained/")
 
     def get_epsilon_start(self):
         return self.epsilon_start
@@ -161,4 +199,4 @@ class ActorCritic(libs_agent.Agent):
         state = self.env.get_observation()
         state_vector = VectorFloat(state)
 
-        return self.model.heatmap_compute(state_vector)
+        return self.model_actor.heatmap_compute(state_vector)
