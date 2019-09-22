@@ -34,7 +34,7 @@ class ActorCritic(libs_agent.Agent):
         #different for training and testing
         self.epsilon_start      = epsilon_start
         self.epsilon_end        = epsilon_end
-        self.epsilon_decay      = epsilon_decay
+        self.epsilon_decay      = 0.9999 #epsilon_decay
 
         self.gamma = gamma
 
@@ -45,17 +45,16 @@ class ActorCritic(libs_agent.Agent):
         self.model_critic._print()
 
     def main(self):
-        self.epsilon_start = self.epsilon_end
-        epsilon = self.epsilon_end
+        #self.epsilon_start = self.epsilon_end
+        #epsilon = self.epsilon_end
 
-        '''
+
         if self.is_run_best_enabled():
             epsilon = self.epsilon_end
         else:
             epsilon = self.epsilon_start
             if self.epsilon_start > self.epsilon_end:
                 self.epsilon_start*= self.epsilon_decay
-        '''
 
 
         state           = self.env.get_observation()
@@ -94,49 +93,38 @@ class ActorCritic(libs_agent.Agent):
             }
             self.replay_buffer.append(buffer_item)
         else:
-            #compute buffer Q values, using Q learning
+            #compute buffer
+
+            td_error_sum = 0.0
             for n in reversed(range(self.replay_buffer_size-1)):
 
-                #choose zero gamme if current state is terminal
+                policy_probs = self.__vector_to_probs(self.replay_buffer[n]["actor_output"])
+
+
+                #choose zero q if current state is terminal
                 if self.replay_buffer[n]["terminal"] == True:
                     gamma = 0.0
                 else:
                     gamma = self.gamma
 
-                #critic learning
-                q      = self.replay_buffer[n]["reward"] + gamma*self.replay_buffer[n + 1]["critic_output"][0]
-                self.replay_buffer[n]["critic_output"][0] = self.__clamp(q, -10.0, 10.0)
 
-                policy_probs = self.__vector_to_probs(self.replay_buffer[n]["actor_output"])
+                td_target = self.replay_buffer[n]["reward"] + gamma*self.replay_buffer[n+1]["critic_output"][0]
+                td_error  = td_target - self.replay_buffer[n]["critic_output"][0]
+
+                td_error_sum+= td_error**2.0
+
+                self.replay_buffer[n]["critic_output"][0] = self.__clamp(td_target, -10.0, 10.0)
 
                 #actor learning
                 action_id = self.replay_buffer[n]["action"]
-                self.replay_buffer[n]["actor_output"][action_id] = q*1.0/(policy_probs[action_id] + epsilon)
+                self.replay_buffer[n]["actor_output"][action_id] = td_error*policy_probs[action_id] #  *1.0/(policy_probs[action_id] + epsilon)
 
-                #for action_id in range(0, policy_probs.size()):
-                #    self.replay_buffer[n]["actor_output"][action_id] = q*1.0/(policy_probs[action_id] + epsilon)
-
-                #clamp Q values into range <-10, 10> to prevent divergence
-                for action in range(self.env.get_actions_count()):
-                    self.replay_buffer[n]["actor_output"][action] = self.__clamp(self.replay_buffer[n]["actor_output"][action], -10.0, 10.0)
-
-
+            td_error_sum = (td_error_sum/self.replay_buffer_size)**0.5
+            print("TD error = ", td_error_sum)
 
             #shuffle items order
             indicies = numpy.arange(self.replay_buffer_size)
             numpy.random.shuffle(indicies)
-
-            #train actor
-            self.model_actor.set_training_mode()
-            for i in range(len(indicies)):
-                idx = indicies[i]
-
-                state  = self.replay_buffer[idx]["state"]
-                target = self.replay_buffer[idx]["actor_output"]
-
-                #fit network
-                self.model_actor.train(target, state)
-            self.model_actor.unset_training_mode()
 
             #train critic
             self.model_critic.set_training_mode()
@@ -149,6 +137,26 @@ class ActorCritic(libs_agent.Agent):
                 #fit network
                 self.model_critic.train(target, state)
             self.model_critic.unset_training_mode()
+
+
+            actor_output = VectorFloat(self.env.get_actions_count())
+
+            #train actor
+            self.model_actor.set_training_mode()
+            for i in range(len(indicies)):
+                idx = indicies[i]
+
+                state  = self.replay_buffer[idx]["state"]
+                target = self.replay_buffer[idx]["actor_output"]
+
+                #fit network
+                self.model_actor.train(target, state)
+
+
+
+            self.model_actor.unset_training_mode()
+
+
 
             #clear buffer
             self.replay_buffer = []
@@ -164,6 +172,10 @@ class ActorCritic(libs_agent.Agent):
         return value
 
     def __vector_to_probs(self, input):
+        for i in range(input.size()):
+            print(input[i], end = " ")
+        print()
+
         result    = VectorFloat(self.env.get_actions_count())
 
         sum = 0.0
