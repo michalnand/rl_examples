@@ -53,6 +53,9 @@ class Env:
     def get_move(self):
         return self.move
 
+    def get_iterations(self):
+        return self.move
+
     def get_normalised_score(self):
         return self.get_score()/(self.get_move() + 0.00000000000001)
 

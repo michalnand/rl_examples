@@ -18,6 +18,7 @@ class EnvMountainCar(env.Env):
         self.width  = 1
         self.height = 1
         self.depth  = 2
+        self.time   = 1
 
         #init state, as 1D vector (tensor with size depth*height*width)
         self.observation_init()
@@ -34,6 +35,8 @@ class EnvMountainCar(env.Env):
         self.move_to_top = 0
 
         self.reset()
+
+        self.games_count = 0
 
         self.gui = gl_gui.GLVisualisation()
 
@@ -118,6 +121,8 @@ class EnvMountainCar(env.Env):
             self.set_terminal_state()
             self.reset()
 
+            self.games_count+= 1
+
             self.move_to_top = self.move - self.move_old
             self.move_old = self.move
         else:
@@ -130,6 +135,9 @@ class EnvMountainCar(env.Env):
 
     def get_move_to_top(self):
         return self.move_to_top
+
+    def get_games_count(self):
+        return self.games_count
 
     def x_to_gui_x(self, x):
         return (x*1.0/self.width - 0.5)*2.0

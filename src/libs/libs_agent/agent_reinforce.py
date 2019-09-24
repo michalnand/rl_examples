@@ -6,7 +6,7 @@ import libs.libs_agent.agent as libs_agent
 from libs.libs_rysy_python.rysy import *
 
 
-class ActorCritic(libs_agent.Agent):
+class Reinforce(libs_agent.Agent):
     def __init__(self, env, network_config_path, gamma, replay_buffer_size, epsilon_start = 1.0, epsilon_end = 0.1, epsilon_decay = 0.99999):
 
         #init parent class
@@ -14,8 +14,7 @@ class ActorCritic(libs_agent.Agent):
 
         state_shape  = Shape(self.env.get_width(), self.env.get_height(), self.env.get_depth()*self.env.get_time())
 
-        self.model_actor   = CNN(network_config_path + "actor_config.json", state_shape, Shape(1, 1, self.env.get_actions_count()))
-        self.model_critic  = CNN(network_config_path + "critic_config.json", state_shape, Shape(1, 1, 1))
+        self.model   = CNN(network_config_path + "network_config.json", state_shape, Shape(1, 1, self.env.get_actions_count()))
 
         #init probabilities of choosing random action
         #different for training and testing
@@ -26,8 +25,7 @@ class ActorCritic(libs_agent.Agent):
         self.replay_buffer_size = replay_buffer_size
         self.replay_buffer = []
 
-        self.model_actor._print()
-        self.model_critic._print()
+        self.model._print()
 
 
     def main(self):
@@ -37,15 +35,11 @@ class ActorCritic(libs_agent.Agent):
 
         state           = self.env.get_observation()
         state_vector    = VectorFloat(state)    #convert to C++ vector
-        actor_output    = VectorFloat(self.env.get_actions_count())
-        critic_output   = VectorFloat(1)
-
-
-        self.model_critic.forward(critic_output, state_vector)
+        model_output    = VectorFloat(self.env.get_actions_count())
 
         #obtain actor policy output
-        self.model_actor.forward(actor_output, state_vector)
-        policy_probs = self.__softmax(actor_output)
+        self.model.forward(model_output, state_vector)
+        policy_probs = self.__softmax(model_output)
 
 
         actions = list(range(self.env.get_actions_count()))
@@ -68,7 +62,7 @@ class ActorCritic(libs_agent.Agent):
                 "policy_probs"  : policy_probs,
                 "action"        : self.action,
                 "reward"        : self.reward,
-                "critic_output" : critic_output,
+                "q"             : 0.0,
                 "terminal"      : self.env.is_done()
             }
             self.replay_buffer.append(buffer_item)
@@ -82,22 +76,15 @@ class ActorCritic(libs_agent.Agent):
                 else:
                     gamma = self.gamma
 
-                self.replay_buffer[n]["critic_output"][0] = self.replay_buffer[n]["reward"] + gamma*self.replay_buffer[n+1]["critic_output"][0]
+                self.replay_buffer[n]["q"] = self.replay_buffer[n]["reward"] + gamma*self.replay_buffer[n+1]["q"]
 
 
             #shuffle items order
             indicies = numpy.arange(self.replay_buffer_size)
             numpy.random.shuffle(indicies)
 
-            #train critic
-            self.model_critic.set_training_mode()
-            for i in range(len(indicies)):
-                idx = indicies[i]
-                self.model_critic.train(self.replay_buffer[idx]["critic_output"], self.replay_buffer[idx]["state"])
-            self.model_critic.unset_training_mode()
-
             #train actor
-            self.model_actor.set_training_mode()
+            self.model.set_training_mode()
             for i in range(len(indicies)):
                 idx = indicies[i]
 
@@ -108,17 +95,17 @@ class ActorCritic(libs_agent.Agent):
 
                 gradient    = VectorFloat(self.env.get_actions_count())
 
-                q = self.replay_buffer[idx]["critic_output"][0]
+                q = self.replay_buffer[idx]["q"]
                 for j in range(0, gradient.size()):
                     gradient[j] = q*d_log[j]
 
                 state  = self.replay_buffer[idx]["state"]
 
-                self.model_actor.forward(actor_output, state)
-                self.model_actor.train_from_gradient(gradient)
+                self.model.forward(model_output, state)
+                self.model.train_from_gradient(gradient)
 
 
-            self.model_actor.unset_training_mode()
+            self.model.unset_training_mode()
 
             #clear buffer
             self.replay_buffer = []
@@ -168,16 +155,14 @@ class ActorCritic(libs_agent.Agent):
     """
     def save(self, file_name_prefix):
         print("saving to", file_name_prefix)
-        self.model_actor.save(file_name_prefix + "actor_trained/")
-        self.model_critic.save(file_name_prefix + "critic_trained/")
+        self.model.save(file_name_prefix + "trained/")
 
     """
         load agent neural network from specified file
     """
     def load(self, file_name_prefix):
         print("loading weights from ", file_name_prefix)
-        self.model_actor.load_weights(file_name_prefix  + "actor_trained/")
-        self.model_critic.load_weights(file_name_prefix  + "critic_trained/")
+        self.model.load_weights(file_name_prefix  + "trained/")
 
     def get_epsilon_start(self):
         return self.epsilon_start

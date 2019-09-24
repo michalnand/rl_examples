@@ -3,6 +3,7 @@ import libs.libs_agent.agent_dqna
 import libs.libs_agent.agent_dqn_curiosity
 
 import libs.libs_agent.agent_actor_critic
+import libs.libs_agent.agent_reinforce
 
 import libs.libs_rysy_python.rysy as rysy
 
@@ -36,10 +37,12 @@ class AtariRLDqn:
             self.agent = libs.libs_agent.agent_dqn_curiosity.DQNCuriosityAgent(env, self.network_path, gamma, curiosity_ratio, epsilon_start, epsilon_end, epsilon_decay)
         elif agent_type == "ac" or agent_type == "actor_critic":
             self.agent = libs.libs_agent.agent_actor_critic.ActorCritic(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "reinforce":
+            self.agent = libs.libs_agent.agent_reinforce.Reinforce(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
 
 
 
-    def visualise(self):
+    def visualise(self, put_heatmap = False):
         self.agent.load(self.network_path)
 
         self.agent.run_best_enable()
@@ -47,8 +50,9 @@ class AtariRLDqn:
         while True:
             self.agent.main()
 
-            heat_map = self.agent.get_heatmap()
-            self.env.set_heat_map(heat_map)
+            if put_heatmap:
+                heat_map = self.agent.get_heatmap()
+                self.env.set_heat_map(heat_map)
             self.env.render()
             self.env._print()
 
