@@ -95,6 +95,8 @@ class ActorCriticStateValue(libs_agent.Agent):
             #clear buffer
             self.replay_buffer = []
 
+        return 0
+
     def __train_critic(self):
 
         #shuffle items order

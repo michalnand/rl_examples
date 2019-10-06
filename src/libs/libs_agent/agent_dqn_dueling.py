@@ -157,6 +157,7 @@ class DQNDuelingAgent(libs_agent.Agent):
             #clear buffer
             self.replay_buffer = []
 
+        return 0
 
     def __clamp(self, value, min, max):
         if value < min:
