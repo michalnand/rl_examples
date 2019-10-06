@@ -46,7 +46,7 @@ class AtariMultiRLDqn:
 
 
     def visualise(self):
-        self.agent.load(self.network_path + "trained/")
+        self.agent.load(self.network_path)
 
         self.agent.run_best_enable()
 
@@ -104,9 +104,9 @@ class AtariMultiRLDqn:
 
             if self.env.get_iterations()%50000 == 0:
                 print("SAVING network")
-                self.agent.save(self.network_path + "trained/")
+                self.agent.save(self.network_path)
 
-        self.agent.save(self.network_path + "trained/")
+        self.agent.save(self.network_path)
         return 0
 
 
