@@ -14,29 +14,28 @@ class EnvPong(env.Env):
         #init parent class -> environment interface
         env.Env.__init__(self)
 
-        #dimensions 1x10x10
-        self.width  = 20
+        self.width  = 16
         self.height = 16
         self.depth  = 1
+        self.time   = 1
 
         #init state, as 1D vector (tensor with size depth*height*width)
         self.observation_init()
 
         #4 actions for movements
         self.actions_count  = 2
+        self.player_size    = 3
 
-        self.player_size = 5
+        self.player_0_points = 0.0
+        self.player_1_points = 0.0
+
+        self.game_idx = 0
 
         self.reset()
 
         self.gui = gl_gui.GLVisualisation()
-        self.hit_count_down = 0
-
 
         self.size_ratio = self.width/self.height
-
-        self.action_now     = 0
-        self.action_prev    = 0
 
 
 
@@ -51,12 +50,12 @@ class EnvPong(env.Env):
 
         #random ball move
 
-        if random.randint(0, 1) == 0:
+        if numpy.random.rand() < 0.5:
             self.ball_dx = 1
         else:
             self.ball_dx = -1
 
-        if random.randint(0, 1) == 0:
+        if numpy.random.rand() < 0.5:
             self.ball_dy = 1
         else:
             self.ball_dy = -1
@@ -77,31 +76,24 @@ class EnvPong(env.Env):
 
         self.gui.start()
 
-        for y in range(0, self.height):
-            self.gui.push()
-            self.gui.translate(self.x_to_gui_x(self.width/2), self.y_to_gui_y(y), 0.0)
-            self.gui.set_color(1.0, 1.0, 1.0)
-            self.gui.paint_textured_rectangle(element_size*0.5, element_size, 5)
-            self.gui.pop()
-
         self.gui.push()
         self.gui.translate(self.x_to_gui_x(self.ball_x), self.y_to_gui_y(self.ball_y), 0.0)
         self.gui.set_color(1.0, 1.0, 1.0)
-        self.gui.paint_textured_rectangle(element_size, element_size, 5)
+        self.gui.paint_rectangle(element_size, element_size)
         self.gui.pop()
 
         for y in range(0, self.player_size):
             self.gui.push()
-            self.gui.translate(self.x_to_gui_x(self.width-1), self.y_to_gui_y(y + self.player_1 - self.player_size/2 + 1), 0.0)
+            self.gui.translate(self.x_to_gui_x(self.width), self.y_to_gui_y(y + self.player_1 - self.player_size/2 + 1), 0.0)
             self.gui.set_color(1.0, 1.0, 1.0)
-            self.gui.paint_textured_rectangle(element_size, element_size, 5)
+            self.gui.paint_rectangle(element_size, element_size)
             self.gui.pop()
 
         for y in range(0, self.player_size):
             self.gui.push()
             self.gui.translate(self.x_to_gui_x(0), self.y_to_gui_y(y + self.player_0 - self.player_size/2 + 1), 0.0)
             self.gui.set_color(1.0, 1.0, 1.0)
-            self.gui.paint_textured_rectangle(element_size, element_size, 5)
+            self.gui.paint_rectangle(element_size, element_size)
             self.gui.pop()
 
         self.gui.finish()
@@ -112,42 +104,63 @@ class EnvPong(env.Env):
         self.reward = 0.0
         self.set_no_terminal_state()
 
-        if self.ball_y > self.player_1:
-            self.player_1+= 1
-        else:
-            self.player_1-= 1
-
         if action == 0:
-            self.player_0+= 1
+            player_0_dx = 1
         else:
-            self.player_0-= 1
+            player_0_dx = -1
 
-        self.player_0 = self.__saturate(self.player_0, 0, self.height-1)
+        self.player_0+= player_0_dx
+        self.player_0 = numpy.clip(self.player_0, 0, self.height-1)
+
+        if numpy.absolute(self.player_0 - self.ball_y) < self.player_size:
+            player_0_hit = True
+        else:
+            player_0_hit = False
 
 
-        self.ball_x+= self.ball_dx
-        self.ball_y+= self.ball_dy
 
-        if self.ball_x <= 0:
+        if self.ball_y > self.player_1:
+            player_1_dx = 1
+        else:
+            player_1_dx = -1
 
-            dif = numpy.absolute(self.player_0 - self.ball_y)
-            if dif < self.player_size:
-                self.hit_count_down = 10
+        if numpy.random.rand() < 0.15:
+            player_1_dx*= -1
+
+        self.player_1+= player_1_dx
+        self.player_1 = numpy.clip(self.player_1, 0, self.height-1)
+
+        if numpy.absolute(self.player_1 - self.ball_y) < self.player_size:
+            player_1_hit = True
+        else:
+            player_1_hit = False
+
+
+
+        if self.ball_x == 1:
+            if player_0_hit:
                 self.ball_dx = 1
             else:
                 self.reset()
-                self.reward = -1.0
                 self.set_terminal_state()
-
-        if self.hit_count_down == 1:
-            self.reward  = 1
-
-        if self.hit_count_down > 0:
-            self.hit_count_down-= 1
-
+                self.player_1_points+= 1
+                self.reward = -1.0
 
         if self.ball_x >=  self.width-1:
-            self.ball_dx = -1
+            if player_1_hit:
+                self.ball_dx = -1
+            else:
+                self.reset()
+                self.set_terminal_state()
+                self.player_0_points+= 1
+                self.reward = +1.0
+
+        if (self.player_0_points + self.player_1_points >= 64):
+            self.game_idx+= 1
+
+            self.player_0_points = 0
+            self.player_1_points = 0
+
 
         if self.ball_y <= 0:
             self.ball_dy = 1
@@ -155,13 +168,16 @@ class EnvPong(env.Env):
         if self.ball_y >=  self.height-1:
             self.ball_dy = -1
 
-
-        self.action_prev    = self.action_now
-        self.action_now     = action
+        self.ball_x+= self.ball_dx
+        self.ball_y+= self.ball_dy
 
         #print(self.get_score(), self.ball_y, self.player_0, self.player_1)
+
         self.__position_to_state()
         self.next_move()
+
+    def get_games_count(self):
+        return self.game_idx
 
     def x_to_gui_x(self, x):
         return self.size_ratio*(x*1.0/self.width - 0.5)*2.0
@@ -174,12 +190,14 @@ class EnvPong(env.Env):
         ball_y = self.__saturate(int(self.ball_y), 0, self.height-1)
 
         player_0 = self.__saturate(int(self.player_0), 0, self.height-1)
-        #player_1 = self.__saturate(int(self.player_1), 0, self.height-1)
+        player_1 = self.__saturate(int(self.player_1), 0, self.height-1)
 
         self.observation.fill(0.0)
-        self.observation[ball_y*self.get_width() + ball_x] = 1.0
-        self.observation[player_0*self.get_width() + 0] = 1.0
-        #self.observation[player_1*self.get_width() + self.get_width()-1] = 1.0
+        self.observation[ball_y*self.get_width() + ball_x]                  = 1.0
+        self.observation[player_0*self.get_width() + 0]                     = 1.0
+        self.observation[player_1*self.get_width() + self.get_width()-1]    = 1.0
+
+
 
 
     def __saturate(self, value, min, max):

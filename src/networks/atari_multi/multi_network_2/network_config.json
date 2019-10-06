@@ -11,14 +11,42 @@
         "layers"         :
         [
             {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention"
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 64]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "spatial_attention"
             },
             {
                 "type"      : "max pooling",
@@ -27,14 +55,87 @@
 
 
             {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention"
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 64]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "spatial_attention"
+            },
+            {
+                "type"      : "max pooling",
+                "shape"  : [2, 2, 1]
+            },
+
+
+
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 64]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "spatial_attention"
             },
             {
                 "type"      : "max pooling",
@@ -43,29 +144,42 @@
 
 
             {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention"
-            },
-            {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
-            },
-
-            {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "spatial attention"
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "dense convolution",
+                "shape"  : [3, 3, 16]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "convolution",
+                "shape"  : [1, 1, 64]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "spatial_attention"
             },
             {
                 "type"      : "max pooling",
@@ -80,7 +194,6 @@
             {
                 "type"      : "elu"
             },
-
             {
                 "type"      : "dropout"
             },

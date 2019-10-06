@@ -77,3 +77,7 @@ class Agent():
                 result = i
 
         return result
+
+    def add_history(self):
+        
+        self.env.get_score()

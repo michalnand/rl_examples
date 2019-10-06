@@ -102,6 +102,10 @@ class EnvAtariSnake(env_atari_interface.EnvAtariInterface):
         self.points = 0
         self.__respawn()
 
+    def _print(self):
+        #print("move=", self.get_move(), "  score=", self.get_score(), "  normalised score=", self.get_normalised_score())
+        print("done game ", self.game_idx, " score ", self.get_score())
+
 
     def __respawn(self):
 

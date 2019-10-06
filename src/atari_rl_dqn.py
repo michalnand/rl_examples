@@ -1,9 +1,10 @@
 import libs.libs_agent.agent_dqn
+import libs.libs_agent.agent_dqn_dueling
 import libs.libs_agent.agent_dqna
 import libs.libs_agent.agent_dqn_curiosity
-
-import libs.libs_agent.agent_actor_critic
 import libs.libs_agent.agent_reinforce
+
+import libs.libs_agent.agent_actor_critic_state_value
 
 import libs.libs_rysy_python.rysy as rysy
 
@@ -22,23 +23,25 @@ class AtariRLDqn:
         replay_buffer_size  = 8192
         epsilon_start       = 1.0
         epsilon_end         = 0.1
-        epsilon_decay       = 0.99999
+        epsilon_decay       = 0.9999 #9
         curiosity_ratio     = 0.1
 
         self.training_games_to_play = 0
 
         if agent_type == "dqn":
             self.agent = libs.libs_agent.agent_dqn.DQNAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "dqn_dueling":
+            self.agent = libs.libs_agent.agent_dqn_dueling.DQNDuelingAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
         elif agent_type == "dqrn":
             self.agent = libs.libs_agent.agent_dqn.DQNAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay, True)
         elif agent_type == "dqna":
             self.agent = libs.libs_agent.agent_dqna.DQNAAgent(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
         elif agent_type == "curiosity":
             self.agent = libs.libs_agent.agent_dqn_curiosity.DQNCuriosityAgent(env, self.network_path, gamma, curiosity_ratio, epsilon_start, epsilon_end, epsilon_decay)
-        elif agent_type == "ac" or agent_type == "actor_critic":
-            self.agent = libs.libs_agent.agent_actor_critic.ActorCritic(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
         elif agent_type == "reinforce":
             self.agent = libs.libs_agent.agent_reinforce.Reinforce(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "actor_critic_state_value":
+            self.agent = libs.libs_agent.agent_actor_critic_state_value.ActorCriticStateValue(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
 
 
 

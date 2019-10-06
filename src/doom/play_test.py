@@ -21,7 +21,7 @@ epsilon_decay       = 0.99999
 #init DQN agent
 agent = libs.libs_agent.agent_dqn.DQNAgent(env, network_path + "network_config.json", gamma, replay_buffer_size, epsilon_training, epsilon_testing, epsilon_decay)
 
-agent.load(network_path + "trained/")
+agent.load(network_path)
 
 #agent.run_best_enable()
 #agent.kernel_visualisation(network_path + "kernel_visualisation/")
@@ -39,10 +39,7 @@ while True:
     #env.render_state()
 
     res = agent.main()
-    if res != 0:
-        print("agent returned ", res)
-        break
+
     #env.render_state()
     if env.get_iterations()%256 == 0:
         env._print()
-
