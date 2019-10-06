@@ -21,14 +21,20 @@ class AtariMultiRLDqn:
         self.training_games_to_play = 0
         self.agent_type = agent_type
 
-        if self.agent_type == "dqn":
-            self.agent = libs.libs_agent.agent_dqn.DQNAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_training, epsilon_testing, epsilon_decay)
-        elif self.agent_type == "dqrn":
-            self.agent = libs.libs_agent.agent_dqn.DQNAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_training, epsilon_testing, epsilon_decay, True)
-        elif self.agent_type == "dqna":
-            self.agent = libs.libs_agent.agent_dqna.DQNAAgent(env, self.network_path, gamma, replay_buffer_size, epsilon_training, epsilon_testing, epsilon_decay)
-        elif self.agent_type == "curiosity":
-            self.agent = libs.libs_agent.agent_dqn_curiosity.DQNCuriosityAgent(env, self.network_path, gamma, curiosity_ratio, replay_buffer_size, epsilon_training, epsilon_testing, epsilon_decay)
+        if agent_type == "dqn":
+            self.agent = libs.libs_agent.agent_dqn.DQNAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "dqn_dueling":
+            self.agent = libs.libs_agent.agent_dqn_dueling.DQNDuelingAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "dqrn":
+            self.agent = libs.libs_agent.agent_dqn.DQNAgent(self.env, self.network_path + "network_config.json", gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay, True)
+        elif agent_type == "dqna":
+            self.agent = libs.libs_agent.agent_dqna.DQNAAgent(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "curiosity":
+            self.agent = libs.libs_agent.agent_dqn_curiosity.DQNCuriosityAgent(env, self.network_path, gamma, curiosity_ratio, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "reinforce":
+            self.agent = libs.libs_agent.agent_reinforce.Reinforce(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
+        elif agent_type == "actor_critic_state_value":
+            self.agent = libs.libs_agent.agent_actor_critic_state_value.ActorCriticStateValue(env, self.network_path, gamma, replay_buffer_size, epsilon_start, epsilon_end, epsilon_decay)
 
 
 
