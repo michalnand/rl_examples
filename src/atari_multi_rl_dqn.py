@@ -1,7 +1,14 @@
 import libs.libs_agent.agent_dqn
+import libs.libs_agent.agent_dqn_dueling
 import libs.libs_agent.agent_dqna
 import libs.libs_agent.agent_dqn_curiosity
+import libs.libs_agent.agent_reinforce
+
+import libs.libs_agent.agent_actor_critic_state_value
+
 import libs.libs_rysy_python.rysy as rysy
+
+import numpy
 
 
 class AtariMultiRLDqn:
