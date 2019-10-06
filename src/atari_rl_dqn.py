@@ -23,7 +23,7 @@ class AtariRLDqn:
         replay_buffer_size  = 8192
         epsilon_start       = 1.0
         epsilon_end         = 0.1
-        epsilon_decay       = 0.9999 #9
+        epsilon_decay       = 0.99999
         curiosity_ratio     = 0.1
 
         self.training_games_to_play = 0
