@@ -12,51 +12,50 @@
         [
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 64]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
-            },
-
-
-            {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 64]
-            },
-            {
-                "type"      : "elu"
-            },
-            {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
+                "type"      : "max_pooling",
+                "shape"     : [2, 2]
             },
 
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 64]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
+                "type"      : "max_pooling",
+                "shape"     : [2, 2]
             },
 
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 64]
+                "shape"  : [3, 3, 32]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
+                "type"      : "max_pooling",
+                "shape"     : [2, 2]
+            },
+
+            {
+                "type"      : "convolution",
+                "shape"  : [3, 3, 32]
+            },
+            {
+                "type"      : "elu"
+            },
+            {
+                "type"      : "max_pooling",
+                "shape"     : [2, 2]
             },
 
 
@@ -67,8 +66,6 @@
             {
                 "type"      : "elu"
             },
-
-
 
             {
                 "type"      : "dropout"

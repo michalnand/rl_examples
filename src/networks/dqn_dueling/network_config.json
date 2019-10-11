@@ -18,8 +18,7 @@
                 "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2]
+                "type"      : "crop"
             },
 
             {
@@ -30,27 +29,14 @@
                 "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2]
+                "type"      : "crop"
             },
 
-
-            {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
-            },
-            {
-                "type"      : "elu"
-            },
-            {
-                "type"      : "max pooling",
-                "shape"  : [2, 2]
-            },
 
 
             {
                 "type"      : "fc",
-                "shape"  : [1, 1, 64]
+                "shape"  : [1, 1, 128]
             },
             {
                 "type"      : "elu"

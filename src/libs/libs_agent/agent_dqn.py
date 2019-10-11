@@ -3,7 +3,7 @@
  agent is using deep neural network and experience replay to learn Q(s, a) values
 
  parameters
- network_config_file_name - DQN neural network architecture
+ agent_config_path - config dir
  epsilon_start - probability of choosing random action during training
  epsilon_end  - probability of choosing random action during testing or final value
  epsilon_decay - dacay of epsilon during training
@@ -12,33 +12,36 @@
 import numpy
 import random
 import math
+import json
 import libs.libs_agent.agent as libs_agent
 
 from libs.libs_rysy_python.rysy import *
 
 
+
+
 #deep Q network agent
 class DQNAgent(libs_agent.Agent):
-    def __init__(self, env, network_config_file_name, gamma, replay_buffer_size, epsilon_start = 1.0, epsilon_end = 0.1, epsilon_decay = 0.99999):
+    def __init__(self, env, agent_config_path):
 
         #init parent class
         libs_agent.Agent.__init__(self, env)
 
+        json_file = open(agent_config_path + "agent_config.json")
+        json_data = json.load(json_file)
+
+        self.replay_buffer_size = int(json_data["replay_buffer_size"])
+        self.gamma              = float(json_data["gamma"])
+        self.epsilon_start      = float(json_data["epsilon_start"])
+        self.epsilon_end        = float(json_data["epsilon_end"])
+        self.epsilon_decay      = float(json_data["epsilon_decay"])
+        self.replay_buffer      = []
+
 
         state_shape  = Shape(self.env.get_width(), self.env.get_height(), self.env.get_depth()*self.env.get_time())
         output_shape = Shape(1, 1, self.env.get_actions_count())
-        self.model   = CNN(network_config_file_name, state_shape, output_shape)
+        self.model   = CNN(agent_config_path + "network_config.json", state_shape, output_shape)
 
-        #init probabilities of choosing random action
-        #different for training and testing
-        self.epsilon_start      = epsilon_start
-        self.epsilon_end        = epsilon_end
-        self.epsilon_decay      = epsilon_decay
-
-        self.gamma = gamma
-
-        self.replay_buffer_size = replay_buffer_size
-        self.replay_buffer = []
 
         self.model._print()
 

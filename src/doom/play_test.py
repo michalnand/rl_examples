@@ -19,7 +19,7 @@ epsilon_testing     = 0.1
 epsilon_decay       = 0.99999
 
 #init DQN agent
-agent = libs.libs_agent.agent_dqn.DQNAgent(env, network_path + "network_config.json", gamma, replay_buffer_size, epsilon_training, epsilon_testing, epsilon_decay)
+agent = libs.libs_agent.agent_dqn.DQNAgent(env, network_path)
 
 agent.load(network_path)
 

@@ -9,13 +9,13 @@ import random
 
 class EnvPong(env.Env):
 
-    def __init__(self):
+    def __init__(self, size = 16):
 
         #init parent class -> environment interface
         env.Env.__init__(self)
 
-        self.width  = 16
-        self.height = 16
+        self.width  = size
+        self.height = size
         self.depth  = 1
         self.time   = 1
 
@@ -23,7 +23,7 @@ class EnvPong(env.Env):
         self.observation_init()
 
         #4 actions for movements
-        self.actions_count  = 2
+        self.actions_count  = 3
         self.player_size    = 3
 
         self.player_0_points = 0.0
@@ -45,17 +45,17 @@ class EnvPong(env.Env):
         self.player_1 = self.height/2
 
         #ball to center + some noise
-        self.ball_x  = self.width/2  + random.randint(-1, 1)
-        self.ball_y  = self.height/2 + random.randint(-1, 1)
+        self.ball_x  = self.width/2  + random.randint(0, 1)
+        self.ball_y  = self.height/2 + random.randint(0, 1)
 
         #random ball move
 
-        if numpy.random.rand() < 0.5:
+        if (numpy.random.randint(1024)%2) == 0:
             self.ball_dx = 1
         else:
             self.ball_dx = -1
 
-        if numpy.random.rand() < 0.5:
+        if (numpy.random.randint(1024)%2) == 0:
             self.ball_dy = 1
         else:
             self.ball_dy = -1
@@ -64,7 +64,6 @@ class EnvPong(env.Env):
 
     def _print(self):
         print("move=", self.get_move(), "  score=", self.get_score(), "  normalised score=", self.get_normalised_score())
-        self.render()
 
     def render(self):
         self.gui.init("pong", 32*self.width, 32*self.height)
@@ -106,8 +105,10 @@ class EnvPong(env.Env):
 
         if action == 0:
             player_0_dx = 1
-        else:
+        elif action == 1:
             player_0_dx = -1
+        else:
+            player_0_dx = 0
 
         self.player_0+= player_0_dx
         self.player_0 = numpy.clip(self.player_0, 0, self.height-1)
@@ -124,7 +125,7 @@ class EnvPong(env.Env):
         else:
             player_1_dx = -1
 
-        if numpy.random.rand() < 0.15:
+        if numpy.random.rand() < 0.12:
             player_1_dx*= -1
 
         self.player_1+= player_1_dx
@@ -137,7 +138,7 @@ class EnvPong(env.Env):
 
 
 
-        if self.ball_x == 1:
+        if self.ball_x <= 1:
             if player_0_hit:
                 self.ball_dx = 1
             else:

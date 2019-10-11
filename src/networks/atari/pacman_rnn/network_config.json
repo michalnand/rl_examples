@@ -12,27 +12,13 @@
         [
             {
                 "type"      : "convolution",
-                "shape"  : [3, 3, 32]
+                "shape"  : [3, 3, 16]
             },
             {
                 "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
-            },
-
-
-            {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
-            },
-            {
-                "type"      : "elu"
-            },
-            {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
+                "type"      : "crop"
             },
 
             {
@@ -43,31 +29,18 @@
                 "type"      : "elu"
             },
             {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
+                "type"      : "crop"
             },
 
+
+
             {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
+                "type"      : "fc",
+                "shape"  : [1, 1, 128]
             },
             {
                 "type"      : "elu"
             },
-            {
-                "type"      : "max pooling",
-                "shape"  : [2, 2, 1]
-            },
-
-            {
-                "type"      : "flatten"
-            },
-
-            {
-                "type"      : "gru",
-                "shape"  : [1, 1, 256]
-            },
-
 
             {
                 "type"      : "dropout"

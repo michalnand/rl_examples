@@ -1,0 +1,7 @@
+{
+    "replay_buffer_size" : 16384,
+    "gamma"              : 0.99,
+    "epsilon_start"      : 1.0,
+    "epsilon_end"        : 0.1,
+    "epsilon_decay"      : 0.99999
+}
