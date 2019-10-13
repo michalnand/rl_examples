@@ -21,5 +21,5 @@ network_path = "networks/atari/arkanoid_a2c/"
 rl_atari = atari_rl_dqn.AtariRLDqn(env, network_path, "actor_critic")
 
 
-#rl_atari.train(1000)
-rl_atari.visualise()
+rl_atari.train(1000)
+#rl_atari.visualise()

@@ -1,5 +1,5 @@
 {
-    "replay_buffer_size" : 8192,
+    "replay_buffer_size" : 512,
     "gamma"              : 0.99,
     "beta"               : 0.01
 }

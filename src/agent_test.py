@@ -22,16 +22,16 @@ rl_atari.train(1000)
 #rl_atari.visualise()
 '''
 
+'''
 network_path = "networks/dqn_dueling/"
 rl_atari = atari_rl_dqn.AtariRLDqn(env, network_path, "dqn_dueling")
 
 rl_atari.train(200)
 rl_atari.visualise()
-
 '''
+
 network_path = "networks/actor_critic/"
 rl_atari = atari_rl_dqn.AtariRLDqn(env, network_path, "actor_critic")
 
-rl_atari.train(1000)
-#rl_atari.visualise()
-'''
+#rl_atari.train(1000)
+rl_atari.visualise()

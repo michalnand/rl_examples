@@ -45,6 +45,8 @@ class ActorCritic(libs_agent.Agent):
         #obtain reward
         self.reward = self.env.get_reward()
 
+        if self.is_run_best_enabled():
+            return
 
         if len(self.replay_buffer) < self.replay_buffer_size:
             buffer_item  = {
