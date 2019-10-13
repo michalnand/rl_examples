@@ -3,7 +3,7 @@ import atari_rl_dqn
 
 
 #init environment
-env = libs.libs_env.env_atari_arkanoid.EnvAtariArkanoid(48)
+env = libs.libs_env.env_atari_arkanoid.EnvAtariArkanoid(24)
 
 '''
 network_path = "networks/atari/arkanoid/"

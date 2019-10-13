@@ -19,6 +19,7 @@ class ActorCritic(libs_agent.Agent):
         self.replay_buffer_size = int(json_data["replay_buffer_size"])
         self.gamma              = float(json_data["gamma"])
         self.beta               = float(json_data["beta"])
+        self.best_action_probability    = float(json_data["best_action_probability"])
         self.replay_buffer      = []
 
         state_shape  = Shape(self.env.get_width(), self.env.get_height(), self.env.get_depth()*self.env.get_time())
@@ -38,7 +39,11 @@ class ActorCritic(libs_agent.Agent):
         actor_output, critic_output = self.__split_model_output(model_output)
 
         policy_probs    = self.__softmax(actor_output)
-        self.action     = self.__select_action(policy_probs, 0.0)
+
+        if self.is_run_best_enabled():
+            self.action     = self.__select_best_action(policy_probs, 1.0- self.best_action_probability)
+        else:
+            self.action     = self.__select_action(policy_probs)
 
         self.env.do_action(self.action)
 
@@ -262,10 +267,13 @@ class ActorCritic(libs_agent.Agent):
         eps = 0.0000001
         return -(numpy.log2(probs + eps) + 1.0/numpy.log(2.0))
 
-    def __select_action(self, probs, random_action_prob):
+    def __select_action(self, probs):
         actions = list(range(self.env.get_actions_count()))
         result = numpy.random.choice(actions, p = probs)
+        return result
 
+    def __select_best_action(self, probs, random_action_prob = 0.0):
+        result = numpy.argmax(probs)
         if numpy.random.rand() < random_action_prob:
             result = numpy.random.randint(self.env.get_actions_count())
 

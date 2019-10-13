@@ -10,46 +10,46 @@
 	},
 	"input_shape" : 
 	[
-		9,
-		9,
-		1
+		1,
+		1,
+		2
 	],
 	"layers" : 
 	[
 		{
 			"input_shape" : 
 			[
-				9,
-				9,
-				1
+				1,
+				1,
+				2
 			],
 			"output_shape" : 
 			[
-				9,
-				9,
-				16
+				1,
+				1,
+				64
 			],
 			"shape" : 
 			[
-				3,
-				3,
-				16
+				1,
+				1,
+				64
 			],
-			"type" : "convolution",
+			"type" : "fc",
 			"weights_file_name" : "networks/actor_critic/trained/layer_0"
 		},
 		{
 			"input_shape" : 
 			[
-				9,
-				9,
-				16
+				1,
+				1,
+				64
 			],
 			"output_shape" : 
 			[
-				9,
-				9,
-				16
+				1,
+				1,
+				64
 			],
 			"shape" : 
 			[
@@ -63,147 +63,59 @@
 		{
 			"input_shape" : 
 			[
-				9,
-				9,
-				16
+				1,
+				1,
+				64
 			],
 			"output_shape" : 
 			[
-				7,
-				7,
-				16
+				1,
+				1,
+				32
 			],
 			"shape" : 
 			[
-				0,
-				0,
-				0
+				1,
+				1,
+				32
 			],
-			"type" : "crop",
+			"type" : "fc",
 			"weights_file_name" : "networks/actor_critic/trained/layer_2"
 		},
 		{
 			"input_shape" : 
 			[
-				7,
-				7,
-				16
+				1,
+				1,
+				32
 			],
 			"output_shape" : 
 			[
-				7,
-				7,
+				1,
+				1,
 				32
 			],
 			"shape" : 
 			[
-				3,
-				3,
-				32
+				0,
+				0,
+				0
 			],
-			"type" : "convolution",
+			"type" : "elu",
 			"weights_file_name" : "networks/actor_critic/trained/layer_3"
 		},
 		{
 			"input_shape" : 
 			[
-				7,
-				7,
-				32
-			],
-			"output_shape" : 
-			[
-				7,
-				7,
-				32
-			],
-			"shape" : 
-			[
-				0,
-				0,
-				0
-			],
-			"type" : "elu",
-			"weights_file_name" : "networks/actor_critic/trained/layer_4"
-		},
-		{
-			"input_shape" : 
-			[
-				7,
-				7,
-				32
-			],
-			"output_shape" : 
-			[
-				5,
-				5,
-				32
-			],
-			"shape" : 
-			[
-				0,
-				0,
-				0
-			],
-			"type" : "crop",
-			"weights_file_name" : "networks/actor_critic/trained/layer_5"
-		},
-		{
-			"input_shape" : 
-			[
-				5,
-				5,
+				1,
+				1,
 				32
 			],
 			"output_shape" : 
 			[
 				1,
 				1,
-				128
-			],
-			"shape" : 
-			[
-				1,
-				1,
-				128
-			],
-			"type" : "fc",
-			"weights_file_name" : "networks/actor_critic/trained/layer_6"
-		},
-		{
-			"input_shape" : 
-			[
-				1,
-				1,
-				128
-			],
-			"output_shape" : 
-			[
-				1,
-				1,
-				128
-			],
-			"shape" : 
-			[
-				0,
-				0,
-				0
-			],
-			"type" : "elu",
-			"weights_file_name" : "networks/actor_critic/trained/layer_7"
-		},
-		{
-			"input_shape" : 
-			[
-				1,
-				1,
-				128
-			],
-			"output_shape" : 
-			[
-				1,
-				1,
-				128
+				32
 			],
 			"shape" : 
 			[
@@ -212,14 +124,14 @@
 				0
 			],
 			"type" : "dropout",
-			"weights_file_name" : "networks/actor_critic/trained/layer_8"
+			"weights_file_name" : "networks/actor_critic/trained/layer_4"
 		},
 		{
 			"input_shape" : 
 			[
 				1,
 				1,
-				128
+				32
 			],
 			"output_shape" : 
 			[
@@ -234,7 +146,7 @@
 				0
 			],
 			"type" : "output",
-			"weights_file_name" : "networks/actor_critic/trained/layer_9"
+			"weights_file_name" : "networks/actor_critic/trained/layer_5"
 		}
 	],
 	"output_shape" : 
