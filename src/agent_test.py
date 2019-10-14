@@ -11,10 +11,9 @@ import libs.libs_agent.agent
 #init environment
 #env = libs.libs_env.env_mountain_car.EnvMountainCar()
 #env = libs.libs_env.env_atari_arkanoid.EnvAtariArkanoid(24)
-#env = libs.libs_env.env_pong.EnvPong(9)
+env = libs.libs_env.env_pong.EnvPong(9)
 #env = libs.libs_env.env_atari_snake.EnvAtariSnake(24)
-
-env = libs.libs_env.env_mountain_car.EnvMountainCar()
+#env = libs.libs_env.env_mountain_car.EnvMountainCar()
 
 '''
 network_path = "networks/dqn/"
@@ -35,5 +34,5 @@ rl_atari.visualise()
 network_path = "networks/actor_critic/"
 rl_atari = atari_rl_dqn.AtariRLDqn(env, network_path, "actor_critic")
 
-#rl_atari.train(1000)
-rl_atari.visualise()
+rl_atari.train(1000)
+#rl_atari.visualise()

@@ -1,5 +1,5 @@
 {
-    "replay_buffer_size" : 512,
+    "replay_buffer_size" : 64,
     "gamma"              : 0.99,
     "beta"               : 0.01,
     "best_action_probability" : 0.95

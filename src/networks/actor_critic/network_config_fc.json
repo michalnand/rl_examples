@@ -11,32 +11,16 @@
         "layers"         :
         [
             {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 16]
+                "type"      : "fc",
+                "shape"     : [1, 1, 64]
             },
             {
                 "type"      : "elu"
             },
-            {
-                "type"      : "crop"
-            },
-
-            {
-                "type"      : "convolution",
-                "shape"  : [3, 3, 32]
-            },
-            {
-                "type"      : "elu"
-            },
-            {
-                "type"      : "crop"
-            },
-
-
 
             {
                 "type"      : "fc",
-                "shape"  : [1, 1, 128]
+                "shape"     : [1, 1, 32]
             },
             {
                 "type"      : "elu"

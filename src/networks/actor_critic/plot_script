@@ -22,8 +22,12 @@ set ylabel "score"
 
 set xlabel "iterations"
 set output 'progress_training_iterations.png'
-plot 'progress_training.log' using 1:3 notitle with lines lw 2 lc 'red'
+plot 'progress_training_1024.log' using 1:3 title 'buffer 1024' with lines lw 2, \
+     'progress_training_256.log' using 1:3 title 'buffer 256' with lines lw 2, \
+     'progress_training.log' using 1:3 title 'buffer 64' with lines lw 2
 
 set xlabel "games played"
 set output 'progress_training_games.png'
-plot 'progress_training.log' using 2:3 notitle with lines lw 2 lc 'red'
+plot 'progress_training_1024.log' using 2:3 title 'buffer 1024' with lines lw 2, \
+     'progress_training_256.log' using 2:3 title 'buffer 256' with lines lw 2, \
+     'progress_training.log' using 2:3 title 'buffer 64' with lines lw 2
